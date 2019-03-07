@@ -2,7 +2,7 @@ from threading import Thread
 import queue
 import time
 import serial
-        
+
 class UartReceiverThread(Thread):
     def __init__(self, serialDevice, baudRate, readSize, readTmo, outputQueue):
         Thread.__init__(self)
@@ -23,12 +23,11 @@ class UartReceiverThread(Thread):
                 self.reconnect()
             else:
                 bytesRead = self.serial.read(self.readSize)
-                print("read=", str(bytesRead), ", type=", type(bytesRead))
                 for byte in bytesRead:
                     self.outputQueue.put(byte)
 
             time.sleep(0.01)
-    
+
     def lost_connection(self):
         return self.serial is None
 

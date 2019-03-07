@@ -17,7 +17,7 @@ uart = UartReceiverThread(
     outputQueue=uartQueue)
 
 persister = FsMessagePersisterThread(
-    targetDirectory='messages',
+    targetDirectory='../messages',
     inputQueue=uartQueue)
 
 running_threads = []
