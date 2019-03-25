@@ -13,20 +13,9 @@ class SensorNode(sqlobject.SQLObject):
     node_id = sqlobject.StringCol(unique=True)
     name = sqlobject.StringCol(unique=True)
     rootpath = sqlobject.StringCol(unique=True)
-    # sensors?
+    # TODO sensoren als subentität
 
 SensorNode.createTable(ifNotExists=True)
-
-'''
-class SensorNodeSensor(sqlobject.SQLObject):
-    node_id = sqlobject.StringCol() # FK to parent
-    sensor_index = sqlobject.IntCol() # unique with node_id
-    name = sqlobject.StringCol()
-    subpath = sqlobject.StringCol()
-    sensor_type = sqlobject.EnumCol()
-
-SensorNodeSensor.createTable(ifNotExists=True)
-'''
 
 class SensorNodeController(Resource):
     def get(self, node_id):

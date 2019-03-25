@@ -1,5 +1,7 @@
 messages/*
 !messages/.keep
+!messages/**/.keep
+!messages/processing/.keep
 */**/__pycache__
 m3.db
 .vscode/

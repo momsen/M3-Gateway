@@ -4,8 +4,11 @@ import time
 import serial
 
 class DiscoveryMessageProcessorThread(Thread):
-    def __init__(self):
+    def __init__(self, inputQueue, sensorApiUrl):
         Thread.__init__(self)
+        self.daemon = True
+        self.active = True
+        self.name = "discovery processor"
         pass
 
     def run(self):
