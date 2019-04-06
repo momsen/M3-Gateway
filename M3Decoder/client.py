@@ -12,6 +12,11 @@ class ClientDataMessageProcessingThread(Thread):
 
     def run(self):
         while self.active:
+            # Choose a client for this run
+            # Lock client queue
+            # If error => continue
+            # If client is not initialized: put queue into background
+            # Otherwise: process up to n messages and free queue
             pass
             time.sleep(0.01)
 

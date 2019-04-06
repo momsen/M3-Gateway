@@ -23,17 +23,22 @@ class MessageBrokerThread(Thread):
                 if not filename.endswith(M3MSG_SUFFIX):
                     continue
 
-                #try:
                 loading_path = os.path.join(self.loadingDirectory, filename)
-                os.rename(os.path.join(self.inputDirectory, filename), loading_path)
-                with open(loading_path, "rb") as file:
-                    message = file.read()
 
-                processing_path = os.path.join(self.processingDirectory, filename)
-                os.rename(loading_path, processing_path)
-                self.decoderQueue.put(InputMessage(filename, processing_path, message))
-                #except:
-                #   break
+                try:
+                    os.rename(os.path.join(self.inputDirectory, filename), loading_path)
+                    with open(loading_path, "rb") as file:
+                        message = file.read()
+
+                    processing_path = os.path.join(self.processingDirectory, filename)
+                    os.rename(loading_path, processing_path)
+                    # TODO: what if rename was successfully but could not put into queue? => rename back? maybe copy and delete instead?
+                    self.decoderQueue.put(InputMessage(filename, processing_path, message))
+                except:
+                    # Unable to read a file or to move a file: reload the file list
+                    break
+            
+            # TODO: reinsert all files of the loading directory into the init directory
 
             time.sleep(0.01)
 
